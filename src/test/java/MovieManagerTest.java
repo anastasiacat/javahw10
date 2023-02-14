@@ -16,7 +16,7 @@ public class MovieManagerTest {
     }
 
     @Test
-    public void addMoviesAndReturnLastTenMovies() {
+    public void addMoviesAndReturnLastTenMoviesWhenMoreThanTenMoviesInManager() {
         MovieManager manager = new MovieManager();
         manager.addNewMovie("Film 1");
         manager.addNewMovie("Film 2");
@@ -37,7 +37,26 @@ public class MovieManagerTest {
     }
 
     @Test
-    public void addMoviesAndReturnLastMoviesLessThanTen() {
+    public void addMoviesAndReturnLastTenMoviesWhenTenMoviesInManager() {
+        MovieManager manager = new MovieManager();
+        manager.addNewMovie("Film 1");
+        manager.addNewMovie("Film 2");
+        manager.addNewMovie("Film 3");
+        manager.addNewMovie("Film 4");
+        manager.addNewMovie("Film 5");
+        manager.addNewMovie("Film 6");
+        manager.addNewMovie("Film 7");
+        manager.addNewMovie("Film 8");
+        manager.addNewMovie("Film 9");
+        manager.addNewMovie("Film 10");
+
+        String[] expected = {"Film 10", "Film 9", "Film 8", "Film 7", "Film 6", "Film 5", "Film 4", "Film 3", "Film 2", "Film 1"};
+        String[] actual = manager.findLast();
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void addMoviesAndReturnLastMoviesLessThanTenMoviesInManager() {
         MovieManager manager = new MovieManager();
         manager.addNewMovie("Film 1");
         manager.addNewMovie("Film 2");
@@ -54,7 +73,7 @@ public class MovieManagerTest {
     }
 
     @Test
-    public void addMoviesAndReturnLastCountMovies() {
+    public void addMoviesAndReturnLastCountMoviesMoreThanLimitInManager() {
         MovieManager manager = new MovieManager(5);
         manager.addNewMovie("Film 1");
         manager.addNewMovie("Film 2");
@@ -66,6 +85,35 @@ public class MovieManagerTest {
         manager.addNewMovie("Film 8");
 
         String[] expected = {"Film 8", "Film 7", "Film 6", "Film 5", "Film 4"};
+        String[] actual = manager.findLast();
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void addMoviesAndReturnLastCountMoviesLessThanLimitInManager() {
+        MovieManager manager = new MovieManager(6);
+        manager.addNewMovie("Film 1");
+        manager.addNewMovie("Film 2");
+        manager.addNewMovie("Film 3");
+        manager.addNewMovie("Film 4");
+
+        String[] expected = {"Film 4", "Film 3", "Film 2", "Film 1"};
+        String[] actual = manager.findLast();
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void addMoviesAndReturnLastCountMovies() {
+        MovieManager manager = new MovieManager(7);
+        manager.addNewMovie("Film 1");
+        manager.addNewMovie("Film 2");
+        manager.addNewMovie("Film 3");
+        manager.addNewMovie("Film 4");
+        manager.addNewMovie("Film 5");
+        manager.addNewMovie("Film 6");
+        manager.addNewMovie("Film 7");
+
+        String[] expected = {"Film 7", "Film 6", "Film 5", "Film 4", "Film 3", "Film 2", "Film 1"};
         String[] actual = manager.findLast();
         Assertions.assertArrayEquals(expected, actual);
     }
